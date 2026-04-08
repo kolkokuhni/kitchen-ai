@@ -9,7 +9,7 @@ ${userPrompt}
 Ultra realistic, high-end interior, 4k render, unique design
 `;
 
-    const response = await fetch("https://api.openai.com/v1/images/generations", {
+    const response = await fetch("https://api.openai.com/v1/images", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +17,7 @@ Ultra realistic, high-end interior, 4k render, unique design
       },
       body: JSON.stringify({
         model: "gpt-image-1",
-        prompt: prompt,
+        input: prompt,
         size: "1024x1024"
       })
     });
