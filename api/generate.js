@@ -24,8 +24,11 @@ Ultra realistic, high-end interior, 4k render, unique design
 
     const data = await response.json();
 
+    // 🔥 ТУК Е ВАЖНОТО:
+    const base64Image = data.data[0].b64_json;
+
     return res.status(200).json({
-      image_url: data.data[0].url
+      image_url: "data:image/png;base64," + base64Image
     });
 
   } catch (error) {
