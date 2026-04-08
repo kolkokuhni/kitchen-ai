@@ -1,12 +1,9 @@
 export default async function handler(req, res) {
   try {
-    const userPrompt =
-      req.method === "POST"
-        ? req.body?.prompt
-        : "modern luxury kitchen, white cabinets, wooden countertop";
+    const userPrompt = req.body?.prompt || "modern kitchen";
 
     const prompt = `
-Modern kitchen design:
+Modern kitchen design based on user preferences:
 ${userPrompt}
 
 Ultra realistic, high-end interior, 4k render, unique design
@@ -25,21 +22,7 @@ Ultra realistic, high-end interior, 4k render, unique design
       })
     });
 
-    const text = await response.text();
-
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      return res.status(500).json({
-        error: "Invalid JSON from OpenAI",
-        raw: text
-      });
-    }
-
-    if (!response.ok) {
-      return res.status(500).json({ error: data });
-    }
+    const data = await response.json();
 
     return res.status(200).json({
       image_url: data.data[0].url
@@ -47,7 +30,8 @@ Ultra realistic, high-end interior, 4k render, unique design
 
   } catch (error) {
     return res.status(500).json({
-      error: error.message
+      error: "Something went wrong",
+      details: error.message
     });
   }
 }
