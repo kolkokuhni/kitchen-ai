@@ -9,7 +9,7 @@ ${userPrompt}
 Ultra realistic, high-end interior, 4k render, unique design
 `;
 
-    const response = await fetch("https://api.openai.com/v1/images", {
+    const response = await fetch("https://api.openai.com/v1/images/generations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
